@@ -11,6 +11,7 @@ export const API_EndPoint = async function (HttpContext) {
 
                 // instanciate the controller       
                 let controller = new Controller(HttpContext);
+                console.log(HttpContext.req.method);
                 switch (HttpContext.req.method) {
                     case 'GET':
                         controller.get(HttpContext.path.id);
