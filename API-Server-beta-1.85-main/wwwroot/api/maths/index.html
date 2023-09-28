@@ -1,1 +1,30 @@
-MAths
+<div>
+GET : Maths Endpoint
+<br>
+List of possibles query strings:
+<br>
+
+? op = + & x = number & y = number
+return{"op":"+","x":number,"y":number, "value":x+y}
+<br>
+? op = - & x = number & y = number
+return{"op":"-","x":number,"y":number, "value":x-y}
+<br>
+? op = * & x = number & y = number
+return{"op":"*","x":number,"y":number, "value":x*y}
+<br>
+? op = / & x = number & y = number
+return{"op":"/","x":number,"y":number, "value":x/y}
+<br>
+? op = % & x = number & y = number
+return{"op":"%","x":number,"y":number, "value":x%y}
+<br>
+? op = ! & n = integer
+return {"op":"%","n":integer,"value":!n}
+<br>
+? op = p & n = integer
+return "op":"p","n":integer,"value":true if n is a prime number
+<br>
+? op = np & n = integer
+return {"op":"n","n":integer,"value":nth prime number}
+</div>
