@@ -12,33 +12,106 @@ export default class MathsController extends Controller {
     get(){
 
         let op =this.HttpContext.path.params["op"];
-        let x=this.HttpContext.path.params["x"];
-        let y=this.HttpContext.path.params["y"];
+        let x= parseInt( this.HttpContext.path.params["x"]);
+
+        
+        if(this.HttpContext.path.params["x"] ==undefined){
+            console.log("dfjk");
+            x= parseInt( this.HttpContext.path.params["X"]);
+        }
+       
+        let y=parseInt(this.HttpContext.path.params["y"]);
+
+        if(this.HttpContext.path.params["y"] ==undefined){
+            y= parseInt( this.HttpContext.path.params["Y"]);
+        }
+        
         let n = this.HttpContext.path.params["n"];
 
         if(op == undefined){
-            console.log("fvhb");
+            this.HttpContext.response.JSON({error: "you need a operator"});
 
             //window.location.href ="http://localhost:5000/api/maths/maths.html";
         }
 
 
+
         if(op =="-"){
-            this.HttpContext.response.JSON("[op:"+op+",x:"+x+",y:"+y+",value:"+(x-y)+"]");
+            this.HttpContext.response.JSON({op: op ,x: x,y:y,value:(x-y)});
         }
         else if(op ==" "){
-            this.HttpContext.response.JSON("[op:+"+",x:"+x+",y:"+y+",value:"+(x+y)+"]");
+            this.HttpContext.response.JSON({op: "+" ,x: x,y:y,value:(x+y)});
         }
         else if(op=="/"){
-            this.HttpContext.response.JSON("[op:+"/",x:"+x+",y:"+y+",value:"+(x / y)+"]");
+            if(y==0){
+                this.HttpContext.response.JSON({op: op ,x: x,y:y,value:"NaN"});
+            }
+            else{
+                this.HttpContext.response.JSON({op: op ,x: x,y:y,value:(x/y)});
+            }
+            
         }
-        else if(op=="/"){
-            this.HttpContext.response.JSON("[op:+"*",x:"+x+",y:"+y+",value:"+(x * y)+"]");
+        else if(op=="*"){
+            this.HttpContext.response.JSON({op: op ,x: x,y:y,value:(x*y)});
+        }
+        else if(op=="%"){
+            if(y==0){
+                this.HttpContext.response.JSON({op: op ,x: x,y:y,value:"NaN"});
+            }
+            else{
+                this.HttpContext.response.JSON({op: op ,x: x,y:y,value:(x%y)});
+            }
+        }
+        else if(op=="!"){
+            if(n==0){
+                this.HttpContext.response.JSON({op: op ,n: n,error:"No 0"});
+            }
+            else{
+                this.HttpContext.response.JSON({op: op ,n: n,value:(factorial(n))});
+            }
+            
+        }
+        else if(op=="p"){
+            if(n==0){
+                this.HttpContext.response.JSON({op: op ,n: n,error:"No 0"});
+            }
+            else if((n - Math.floor(n)) !== 0){
+                this.HttpContext.response.JSON({op: op ,n: n,error:"Number cant have decimals"});
+            }
+            else{
+                this.HttpContext.response.JSON({op: op ,n: n,value:(isPrime(n))});
+            }
+            
+        }
+        else if(op=="np"){
+            this.HttpContext.response.JSON({op: op ,n: n,value:(!isPrime(n))});
         }
 
+        
        
-       
+        function isPrime(value) {
+            for (var i = 2; i < value; i++) {
+                if (value % i === 0) {
+                    return false;
+                }
+            }
+            return value > 1;
+        }
+
+        function factorial(n) {
+            if (n === 0 || n === 1) {
+                return 1;
+            }
+            return n * factorial(n - 1);
+        }
 
     }
+
+
+
+
+    
+
+    
     
 }
