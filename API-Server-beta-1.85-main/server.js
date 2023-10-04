@@ -11,6 +11,8 @@ const server = createServer(async (req, res) => {
         if (!handleStaticResourceRequest(httpContext))
             if (!router.API_EndPoint(httpContext))
                 httpContext.response.notFound('this end point does not exist...');
+        
+        
 
 });
 const PORT = process.env.PORT || 5000;

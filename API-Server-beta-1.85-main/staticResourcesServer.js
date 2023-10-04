@@ -20,6 +20,8 @@ function requestedStaticResource(url) {
     let isDir = isDirectory(url);
     url += isDir ? (url.slice(-1) != '/'? '/' : '' ) : '';
     let resourceName = isDir ? url + defaultResource : url;
+    resourceName = resourceName.replace("?","");
+    console.log(resourceName);
     let resourcePath = path.join(process.cwd(), wwwroot, resourceName);
     return resourcePath;
 }
@@ -33,6 +35,7 @@ function extToContentType(filePath) {
 export function handleStaticResourceRequest(HttpContext) {
     let filePath = requestedStaticResource(HttpContext.req.url);
     let contentType = extToContentType(filePath);
+    console.log(filePath);
     try {
         let content = fs.readFileSync(filePath);
         console.log(contentType, filePath);

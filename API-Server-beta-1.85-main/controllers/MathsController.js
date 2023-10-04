@@ -16,7 +16,6 @@ export default class MathsController extends Controller {
 
         
         if(this.HttpContext.path.params["x"] ==undefined){
-            console.log("dfjk");
             x= parseInt( this.HttpContext.path.params["X"]);
         }
        
@@ -28,13 +27,17 @@ export default class MathsController extends Controller {
         
         let n = this.HttpContext.path.params["n"];
 
-        if(op == undefined){
+
+
+
+        if(op == undefined && (!isNaN(x) || n!= undefined)){
+            
             this.HttpContext.response.JSON({error: "you need a operator"});
 
             //window.location.href ="http://localhost:5000/api/maths/maths.html";
         }
 
-
+        
 
         if(op =="-"){
             this.HttpContext.response.JSON({op: op ,x: x,y:y,value:(x-y)});
@@ -84,7 +87,10 @@ export default class MathsController extends Controller {
             
         }
         else if(op=="np"){
-            this.HttpContext.response.JSON({op: op ,n: n,value:(!isPrime(n))});
+            this.HttpContext.response.JSON({op: op ,n: n,value:(findPrime(n))});
+        }
+        else{
+            this.HttpContext.response.JSON({error: "Bad request"});
         }
 
         
@@ -103,6 +109,17 @@ export default class MathsController extends Controller {
                 return 1;
             }
             return n * factorial(n - 1);
+        }
+
+        function findPrime(n) {
+            let primeNumer = 0;
+            for (let i = 0; i < n; i++) {
+                primeNumer++;
+                while (!isPrime(primeNumer)) {
+                    primeNumer++;
+                }
+            }
+            return primeNumer;
         }
 
     }
