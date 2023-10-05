@@ -47,7 +47,13 @@ export default class MathsController extends Controller {
         }
         else if(op=="/"){
             if(y==0){
-                this.HttpContext.response.JSON({op: op ,x: x,y:y,value:"NaN"});
+                if(x!=0){
+                    this.HttpContext.response.JSON({op: op ,x: x,y:y,value:"Infinity"});
+                }
+                else{
+                    this.HttpContext.response.JSON({op: op ,x: x,y:y,value:"NaN"});
+                }
+                
             }
             else{
                 this.HttpContext.response.JSON({op: op ,x: x,y:y,value:(x/y)});
@@ -59,7 +65,8 @@ export default class MathsController extends Controller {
         }
         else if(op=="%"){
             if(y==0){
-                this.HttpContext.response.JSON({op: op ,x: x,y:y,value:"NaN"});
+
+                    this.HttpContext.response.JSON({op: op ,x: x,y:y,value:"NaN"});
             }
             else{
                 this.HttpContext.response.JSON({op: op ,x: x,y:y,value:(x%y)});
